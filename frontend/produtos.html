@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Tamanho</th>
+                <th>Cor</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-produtos">
+        </tbody>
+    </table>
+
+    <script>
+        fetch('http://localhost:3000/produtos')
+            .then(response => response.json())
+            .then(data => {
+                const tabela = document.getElementById('tabela-produtos');
+                data.forEach(produto => {
+                    const linha = `<tr>
+                        <td>${produto.nome}</td>
+                        <td>R$ ${produto.preco}</td>
+                        <td>${produto.tamanho}</td>
+                        <td>${produto.cor}</td>
+                        <td>${produto.categoria}</td>
+                    </tr>`;
+                    tabela.innerHTML += linha;
+                });
+            });
+    </script>
+</body>
+</html>
